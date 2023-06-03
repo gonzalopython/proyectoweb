@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+
+<h1>Detalles del Pedido</h1>
+
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>Pedido</th>
+        <th>Nombre Vendedor</th>
+        <th>Nombre Cliente</th>
+        <th>Dirección</th>
+        <th>Observación</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ pedido.id }}</td>
+        <td>{{ pedido.vendedor.first_name }} {{ pedido.vendedor.last_name }}</td>
+        <td>{{ pedido.cliente.first_name }} {{ pedido.cliente.last_name }}</td>
+        <td>{{ pedido.direccion }}</td>
+        <td>{{ pedido.observaciones }}</td>
+        <td>{{ pedido.estado.estado }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Cambiar Estado</h2>
+
+<form method="POST" action="{% url 'cambiar_estado' pedido.id %}">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="estado">Nuevo Estado:</label>
+    <select class="form-control" name="estado" id="estado">
+      <!-- Opciones para seleccionar el nuevo estado -->
+      {% for estado in estados %}
+        <option value="{{ estado.idestado }}">{{ estado.estado }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+<h2>Productos:</h2>
+
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th style="text-align: center;">Producto</th>
+        <th style="text-align: center;">Cantidad</th>
+        <th style="text-align: center;">Precio</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for detalle in detalles %}
+      <tr>
+        <td style="text-align: center;">{{ detalle.idproducto.nombre }}</td>
+        <td style="text-align: center;">{{ detalle.cantidad }}</td>
+        <td style="text-align: center;">{{ detalle.precio }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+

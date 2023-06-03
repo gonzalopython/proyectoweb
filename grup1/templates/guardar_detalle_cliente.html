@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+  <h1>Guardar Detalle de Pedido</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="cantidad" class="form-label">Cantidad:</label>
+      <input type="number" name="cantidad" id="cantidad" class="form-control">
+    </div>
+
+    <div class="mb-3">
+      <label for="producto_id" class="form-label">Producto:</label>
+      <select name="producto_id" id="producto_id" class="form-select">
+        <option value="">Seleccione Producto</option>
+        {% for producto in productos %}
+          <option value="{{ producto.id }}" data-precio="{{ producto.precio }}">{{ producto.id }} {{ producto.nombre }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <input type="hidden" name="pedido_id" value="{{ pedido.id }}">  <!-- Corregido: Usar 'pedido.id' en lugar de 'idpedido' -->
+    <input type="hidden" name="precio" id="precio">
+
+    <button type="submit" class="btn btn-primary">Agregar Producto</button>
+  </form>
+  <hr>
+
+  <h2>Detalle de Productos Agregados</h2>
+  <ul>
+    {% for detalle in detalles %}
+      <li>{{ detalle.idproducto.nombre }} - Cantidad: {{ detalle.cantidad }} - Precio: {{ detalle.precio }}</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'confirmacion_pedido' %}" class="btn btn-primary">Finalizar Pedido</a>
+
+  <script>
+    var productoSelect = document.getElementById('producto_id');
+    var precioInput = document.getElementById('precio');
+
+    productoSelect.addEventListener('change', function() {
+      var precioSeleccionado = productoSelect.options[productoSelect.selectedIndex].dataset.precio;
+      precioInput.value = precioSeleccionado;
+      console.log('Precio seleccionado:', precioInput.value);
+    });
+  </script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+  <div class="row">
+    {% for producto in productos %}
+      <div class="col-md-3">
+        <div class="card mb-4 producto-card">
+          {% if producto.imagen %}
+            <img src="{{ producto.imagen.url }}" class="card-img-top producto-img" alt="{{ producto.nombre }}">
+          {% else %}
+            <img src="/media/img/default.jpg" class="card-img-top producto-img" alt="Imagen por defecto">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ producto.nombre }}</h5>
+            <p class="card-text">{{ producto.descripcion }}</p>
+            <p class="card-text">Precio: ${{ producto.precio }}</p>
+            <p class="card-text">Stock: {{ producto.stock }}</p>
+            <!-- Agrega aquí cualquier otra información relevante del producto -->
+          </div>
+        </div>
+      </div>
+      {% if forloop.counter|divisibleby:4 and not forloop.last %}
+        </div>
+        <div class="row">
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endblock %}

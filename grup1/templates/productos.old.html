@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+<div class="container">
+    <h1>Crear Producto</h1>
+    <form method="POST" action="{% url 'productos' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+
+    <h1>Listado de Productos</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.precio }}</td>
+                <td>
+                    <button class="btn btn-danger eliminar-producto" data-producto-id="{{ producto.id }}">Eliminar</button>
+                </td>
+                
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No hay productos</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    // Obtener todos los botones de eliminar producto
+    var eliminarBotones = document.getElementsByClassName('eliminar-producto');
+    
+    // Agregar el evento click a cada botón
+    for (var i = 0; i < eliminarBotones.length; i++) {
+        eliminarBotones[i].addEventListener('click', function() {
+            // Obtener el ID del producto
+            var productoId = this.getAttribute('data-producto-id');
+            
+            // Mostrar la confirmación
+            if (confirm('¿Estás seguro de que quieres eliminar este producto?')) {
+                // Enviar la solicitud de eliminación al servidor
+                fetch('/productos/' + productoId + '/eliminar/', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    }
+                })
+                .then(function(response) {
+                    // Redirigir a la página productos.html
+                    window.location.href = '/productos/';
+                })
+                .catch(function(error) {
+                    console.error('Error al eliminar el producto:', error);
+                });
+            }
+        });
+    }
+</script>
+
+{% endblock %}

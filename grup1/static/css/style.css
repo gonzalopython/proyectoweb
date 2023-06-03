@@ -1,0 +1,39 @@
+<style>
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.login-title {
+  text-align: center;
+}
+
+.login-form {
+  margin-bottom: 20px;
+}
+
+.messages {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.messages li {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 10px;
+}
+</style>

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+  <h1>Tomar Pedido</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="cliente_id" class="form-label">Cliente:</label>
+      <select name="cliente_id" id="cliente_id" class="form-select">
+        <option >Seleccione Cliente</option>
+        {% for cliente in clientes %}
+        <option value="{{ cliente.id }}">{{ cliente.username }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+   
+
+    <div class="mb-3">
+      <label for="direccion" class="form-label">Dirección de entrega:</label>
+      <input type="text" name="direccion" id="direccion" class="form-control">
+    </div>
+
+    <div class="mb-3">
+      <label for="observaciones" class="form-label">Observaciones:</label>
+      <textarea name="observaciones" id="observaciones" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Tomar Pedido</button>
+  </form>
+{% endblock %}

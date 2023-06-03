@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+  <div class="d-flex justify-content-center">
+    <h2>Registro</h2>
+  </div>
+  
+  <div class="d-flex justify-content-center">
+    <table class="table table-dark table-sm" style="width: 500px;">
+      <form method="post">
+        {% csrf_token %}
+        <tbody>
+          <tr>
+            <th style="width: 100px;">Username:</th>
+            <td>{{ form.username }}</td>
+          </tr>
+          <tr>
+            <th style="width: 100px;">First Name:</th>
+            <td>{{ form.first_name }}</td>
+          </tr>
+          <tr>
+            <th style="width: 100px;">Last Name:</th>
+            <td>{{ form.last_name }}</td>
+          </tr>
+          <tr>
+            <th style="width: 100px;">Email:</th>
+            <td>{{ form.email }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th style="width: 100px;"></th>
+            <td colspan="2" class="d-flex justify-content-center">
+              <button type="submit" class="btn btn-primary">Registrarse</button>
+            </td>
+          </tr>
+        </tfoot>
+      </form>
+    </table>
+  </div>
+
+  {% if messages %}
+    <div class="d-flex justify-content-center">
+      {% for message in messages %}
+        <div class="message">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}
+
+
+

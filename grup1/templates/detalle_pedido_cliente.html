@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+
+<h1>Detalles del Pedido</h1>
+
+<table class="table table-striped" style="width: 50%; margin: 0 auto;">
+  <tr>
+    <th style="width: 40%;">Número de Pedido:</th>
+    <td>{{ pedido.id }}</td>
+  </tr>
+  <tr>
+    <th style="width: 40%;">Nombre del Vendedor:</th>
+    <td>{{ pedido.vendedor.first_name }} {{ pedido.vendedor.last_name }}</td>
+  </tr>
+  <tr>
+    <th style="width: 40%;">Dirección:</th>
+    <td>{{ pedido.direccion }}</td>
+  </tr>
+  <tr>
+    <th style="width: 40%;">Observaciones:</th>
+    <td>{{ pedido.observaciones }}</td>
+  </tr>
+  <tr>
+    <th style="width: 40%;">Estado:</th>
+    <td>{{ pedido.estado.estado }}</td>
+  </tr>
+</table>
+
+
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" name="cancelar_pedido" value="Cancelar Pedido">
+</form>
+
+{% if mensaje %}
+<p>{{ mensaje }}</p>
+{% endif %}
+
+<h2>Detalle Productos:</h2>
+
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th style="text-align: center">ID Producto</th>
+      <th style="text-align: center">Nombre Producto</th>
+      <th style="text-align: center">Cantidad</th>
+      <th style="text-align: center">Precio</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for detalle in pedido.detalle_set.all %}
+    <tr>
+      <td style="text-align: center;">{{ detalle.idproducto.id }}</td>
+      <td style="text-align: center;">{{ detalle.idproducto.nombre }}</td>
+      <td style="text-align: center;">{{ detalle.cantidad }}</td>
+      <td style="text-align: center;">{{ detalle.precio }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

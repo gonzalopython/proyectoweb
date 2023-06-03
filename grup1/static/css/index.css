@@ -1,0 +1,8 @@
+.producto-card {
+    height: 100%;
+  }
+  
+  .producto-img {
+    height: 200px; /* Ajusta el valor según el tamaño deseado */
+    object-fit: cover;
+  }

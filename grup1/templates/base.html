@@ -1,0 +1,188 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Mi Sitio</title>
+ 
+  <!-- Importar Bootstrap CSS -->
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" 
+  integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+
+  <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+  <!-- Estilos personalizados -->
+  <style>
+    body {
+      background-color: #b3c7da;
+      color: #212529;
+    }
+
+    .my-5 {
+      margin-top: 3rem !important;
+      margin-bottom: 3rem !important;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Mi Sitio</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+            </li>
+            
+            
+
+            
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Gestión
+              </a>
+  
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'listar_pedidos' %}">Listar Pedidos</a></li>
+                <li><a class="dropdown-item" href="{% url 'tomar_pedido' %}">Tomar Pedido</a></li>
+                <li><a class="dropdown-item" href="{% url 'productos' %}">Gestion Productos</a></li>          
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+              </ul>
+            
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Clientes
+              </a>
+  
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'tomar_pedido_cliente' %}">Solicitud Pedidos</a></li>
+                <li><a class="dropdown-item" href="{% url 'ver_pedidos_cliente' %}">Mis Pedidos</a></li>     
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+              </ul>
+            
+            </li>
+            
+          
+          </ul>
+        </ul>
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="{% url 'logout' %}" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ user.username }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a></li>
+            </ul>
+          </li>
+        </ul>
+      {% else %}
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
+          </li>
+        </ul>
+      {% endif %}
+      
+        </div>
+      </div>
+    </nav>
+    
+<!-- Banner centrado -->
+<div class="text-center">
+  <img src="/media/img/banner.jpg" alt="Banner superior" class="img-fluid">
+</div>
+
+
+
+
+
+    <!-- Contenido principal -->
+    <div class="container text-center my-5">
+      <h1>Bienvenidos a Nuestro Sitio</h1>
+
+      <section>
+
+        <h1>{% block titulo %}{% endblock %}</h1>
+      </section>
+      <section>
+        {% block contenido %}{% endblock %}
+      </section>
+
+
+
+      <!-- Contenido adicional -->
+      <div class="collapse" id="moreContent">
+        <p>Nulla vitae metus eget ex fermentum ullamcorper. Nunc congue arcu eu nunc porttitor, in rutrum justo auctor.
+          Integer eget sapien est. Sed vestibulum risus eu diam aliquam, vitae pharetra eros interdum. Aliquam
+          ullamcorper tortor vel leo molestie, vel suscipit ipsum dapibus. Curabitur lacinia nisi vel bibendum
+          venenatis. Integer eu nunc at lectus placerat ornare vel eu nunc. Morbi vel eros dui. Duis gravida turpis
+          vitae nulla egestas, id iaculis urna bibendum. Fusce efficitur lacus in bibendum tincidunt. Sed hendrerit
+          dolor eget nibh iaculis faucibus. Nullam dictum magna nec urna bibendum, vel semper ipsum convallis. Proin
+          feugiat interdum elit, nec elementum mi iaculis vel. Suspendisse potenti.</p>
+      </div>
+
+   
+
+    <!-- Footer -->
+    <footer class="bg-light text-center text-lg-start">
+      <div class="container p-4">
+        <div class="row">
+          <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+            <h5 class="text-uppercase">Mi Sitio</h5>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum auctor mauris sed diam blandit, sit
+              amet ullamcorper odio lacinia. Fusce nec facilisis ex.</p>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase">Links</h5>
+            <ul class="list-unstyled mb-0">
+              <li>
+                <a href="#!" class="text-dark">Inicio</a>
+              </li>
+              <li>
+                <a href="#!" class="text-dark">Usuarios</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase">Contacto</h5>
+            <ul class="list-unstyled mb-0">
+              <li>
+                <a href="#!" class="text-dark">Email</a>
+              </li>
+              <li>
+                <a href="#!" class="text-dark">Teléfono</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Importar Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" 
+  integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
+  </script>
